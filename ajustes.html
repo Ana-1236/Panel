@@ -48,16 +48,16 @@
                 <div class="bg-white p-6 rounded-lg shadow">
                     <h3 class="text-lg font-semibold mb-2">Foto de perfil</h3>
                     <div class="flex items-center">
-                        <img src="https://via.placeholder.com/80" alt="Profile picture"
-                            class="rounded-full w-20 h-20 mr-4">
+                        <img id="profile-picture" src="https://via.placeholder.com/80" alt="Profile picture" class="rounded-full w-20 h-20 mr-4">
                         <div>
-                            <p class="text-gray-600">JPG, GIF or PNG. Maximo tamaño de 800K</p>
-                            <button style="background-color: #CD966C;" class="bg-blue-600 text-black py-2 px-4 rounded-md hover:bg-blue-700 mt-2">Subir foto</button>
-                            <button
-                                class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 mt-2">Borrar</button>
+                            <p class="text-gray-600">JPG, GIF o PNG. Máximo tamaño de 800K</p>
+                            <input type="file" id="file-input" accept="image/*" style="display: none;" />
+                            <button id="upload-button" style="background-color: #CD966C;" class="bg-blue-600 text-black py-2 px-4 rounded-md hover:bg-blue-700 mt-2">Subir foto</button>
+                            <button id="delete-button" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 mt-2">Borrar</button>
                         </div>
                     </div>
                 </div>
+            
 
                 <!-- General Information -->
                 <div class="bg-white p-6 rounded-lg shadow">
@@ -141,6 +141,27 @@
                 <button style="background-color: #CD966C;" class="bg-blue-600 text-black py-2 px-4 rounded-md hover:bg-blue-700 mt-4">Guardar</button>
             </div>
         </div>
+        <script>
+            document.getElementById('upload-button').addEventListener('click', function() {
+                document.getElementById('file-input').click();
+            });
+    
+            document.getElementById('file-input').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('profile-picture').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+    
+            document.getElementById('delete-button').addEventListener('click', function() {
+                document.getElementById('profile-picture').src = 'https://via.placeholder.com/80';
+                document.getElementById('file-input').value = '';
+            });
+        </script>
 </body>
 
 </html>
